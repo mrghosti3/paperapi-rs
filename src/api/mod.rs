@@ -14,3 +14,9 @@ impl Endpoint {
         builder::EndpointBuilder::new()
     }
 }
+
+impl Into<url::Url> for Endpoint {
+    fn into(self) -> url::Url {
+        self.0
+    }
+}
