@@ -61,6 +61,7 @@ pub struct Version {
     pub support: Support,
 }
 
+/// Represents VersionResponse object from Paper API
 #[derive(Debug, Clone, Deserialize)]
 pub struct VersionResponse {
     /// The Minecraft version.
