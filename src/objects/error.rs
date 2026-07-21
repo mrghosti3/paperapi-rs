@@ -1,3 +1,4 @@
+//! Error response structures from the PaperMC API
 use serde::Deserialize;
 
 use crate::Str;

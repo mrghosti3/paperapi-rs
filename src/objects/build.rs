@@ -1,3 +1,4 @@
+//! Build information, downloads, and checksums
 use chrono::{DateTime, Utc};
 use serde::Deserialize;
 use std::collections::HashMap;

@@ -1,3 +1,4 @@
+//! Minecraft version information and support status
 use chrono::{DateTime, Utc};
 use serde::Deserialize;
 
