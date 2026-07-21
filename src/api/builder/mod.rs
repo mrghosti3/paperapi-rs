@@ -44,7 +44,7 @@ impl EndpointBuilder<UnsetDomain, UnsetApi> {
     }
 }
 
-impl<A> EndpointBuilder<Domain, A> {
+impl<A> EndpointBuilder<UnsetDomain, A> {
     pub fn set_domain(self, domain: Domain) -> EndpointBuilder<Domain, A> {
         EndpointBuilder {
             domain,
