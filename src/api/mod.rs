@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use self::builder::{endpoints::UnsetApi, UnsetDomain};
 
 pub mod ids;
@@ -18,5 +20,11 @@ impl Endpoint {
 impl Into<url::Url> for Endpoint {
     fn into(self) -> url::Url {
         self.0
+    }
+}
+
+impl Display for Endpoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.0)
     }
 }

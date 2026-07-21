@@ -1,4 +1,18 @@
-use super::ids::VersionId;
+use super::Endpoint;
+use super::builder::Builder;
+use super::builder::endpoints::*;
+use super::ids::{BuildId, Project, VersionId};
+
+#[test]
+fn test_example_build_endpoint() {
+    let endpoint = Endpoint::builder()
+        .set_domain(Default::default())
+        .set_endpoint(ProjectVersions::new().v3().set_project(Project::Paper))
+        .build()
+        .unwrap();
+
+    println!("Endpoint URL: {}", endpoint);
+}
 
 #[test]
 fn test_version_parse_stable_ok() {
@@ -69,10 +83,6 @@ fn test_version_parse_rc_ok() {
 }
 
 // Builder endpoint tests
-use super::builder::Builder;
-use super::builder::endpoints::*;
-use super::ids::{BuildId, Project};
-
 #[test]
 fn test_project_versions_url() {
     let url = ProjectVersions::new()
@@ -80,7 +90,7 @@ fn test_project_versions_url() {
         .set_project(Project::Paper)
         .build();
 
-    assert_eq!(url, "v3/projects/paper/versions".into());
+    assert_eq!(url.as_ref(), "v3/projects/paper/versions");
 }
 
 #[test]
@@ -92,7 +102,7 @@ fn test_project_version_url() {
         .set_version(version)
         .build();
 
-    assert_eq!(url, "v3/projects/paper/versions/1.20.1".into());
+    assert_eq!(url.as_ref(), "v3/projects/paper/versions/1.20.1");
 }
 
 #[test]
@@ -104,7 +114,7 @@ fn test_project_builds_url() {
         .set_version(version)
         .build();
 
-    assert_eq!(url, "v3/projects/paper/versions/1.20.1/builds".into());
+    assert_eq!(url.as_ref(), "v3/projects/paper/versions/1.20.1/builds");
 }
 
 #[test]
@@ -117,7 +127,10 @@ fn test_project_build_url_with_version() {
         .set_build(BuildId::Latest)
         .build();
 
-    assert_eq!(url, "v3/projects/paper/versions/1.20.1/builds/latest".into());
+    assert_eq!(
+        url.as_ref(),
+        "v3/projects/paper/versions/1.20.1/builds/latest"
+    );
 }
 
 #[test]
@@ -130,5 +143,5 @@ fn test_project_build_url_with_build_number() {
         .set_build(BuildId::Version(123))
         .build();
 
-    assert_eq!(url, "v3/projects/paper/versions/1.20.1/builds/123".into());
+    assert_eq!(url.as_ref(), "v3/projects/paper/versions/1.20.1/builds/123");
 }
