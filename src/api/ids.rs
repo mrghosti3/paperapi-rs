@@ -1,3 +1,4 @@
+//! Typed identifiers for projects, versions, and builds
 use std::fmt::Display;
 
 use crate::error::{PaperApiError, VersionField};

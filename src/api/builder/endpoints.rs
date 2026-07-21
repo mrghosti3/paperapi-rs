@@ -19,16 +19,32 @@ impl Display for V3 {
     }
 }
 
-#[derive(Debug, Default)]
+/// Marker type indicating that the project has not been set yet.
+///
+/// Used in builder type parameters to enforce that the project must be set
+/// before the endpoint can be built.
+#[derive(Debug)]
 pub struct UnsetProject;
 
-#[derive(Debug, Default)]
+/// Marker type indicating that the version has not been set yet.
+///
+/// Used in builder type parameters to enforce that the version must be set
+/// before the endpoint can be built.
+#[derive(Debug)]
 pub struct UnsetVersion;
 
-#[derive(Debug, Default)]
+/// Marker type indicating that the build has not been set yet.
+///
+/// Used in builder type parameters to enforce that the build must be set
+/// before the endpoint can be built.
+#[derive(Debug)]
 pub struct UnsetBuild;
 
-#[derive(Debug, Default)]
+/// Marker type indicating that the API endpoint has not been set yet.
+///
+/// This is the initial state of the endpoint builder before any specific
+/// endpoint type (e.g., ProjectVersions, ProjectVersion) is chosen.
+#[derive(Debug)]
 pub struct UnsetApi;
 
 /// Builder for PaperMC API v3 projects versions endpoint.

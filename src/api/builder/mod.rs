@@ -1,3 +1,5 @@
+//! Builder pattern for constructing API endpoints
+
 use std::fmt::Display;
 
 use url::{ParseError, Url};
@@ -10,9 +12,36 @@ use super::Endpoint;
 
 pub mod endpoints;
 
+/// Marker type indicating that the domain has not been set yet.
+///
+/// This is used as a type parameter in `EndpointBuilder` to enforce
+/// that the domain must be set before building the endpoint.
+/// The builder starts in this state and transitions to `Domain` state
+/// when `set_domain()` is called.
 #[derive(Debug)]
 pub struct UnsetDomain;
 
+/// Represents the domain configuration for PaperMC API endpoints.
+///
+/// This enum allows choosing between the default PaperMC API domain
+/// or a custom domain for testing or alternative instances.
+///
+/// ## Variants
+///
+/// - `Default`: Uses the official PaperMC API domain (`https://fill.papermc.io`)
+/// - `Custom(Str)`: Uses a custom domain specified as a boxed string
+///
+/// ## Example
+///
+/// ```rust
+/// use paper_api::api::builder::Domain;
+///
+/// // Use the default PaperMC API
+/// let default_domain = Domain::Default;
+///
+/// // Use a custom domain (e.g., for testing)
+/// let custom_domain = Domain::Custom("https://custom.papermc.io".into());
+/// ```
 #[derive(Debug, Default)]
 pub enum Domain {
     #[default]
