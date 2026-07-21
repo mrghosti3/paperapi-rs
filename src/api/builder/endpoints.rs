@@ -4,7 +4,6 @@ use crate::Str;
 use crate::api::ids::{BuildId, Project, VersionId};
 
 use super::Builder;
-use super::api_fields::{UnsetBuild, UnsetProject, UnsetVersion};
 
 /// Marker type indicating that the API version has not been set yet.
 #[derive(Debug)]
@@ -19,6 +18,15 @@ impl Display for V3 {
         f.write_str("v3")
     }
 }
+
+#[derive(Debug, Default)]
+pub struct UnsetProject;
+
+#[derive(Debug, Default)]
+pub struct UnsetVersion;
+
+#[derive(Debug, Default)]
+pub struct UnsetBuild;
 
 #[derive(Debug, Default)]
 pub struct UnsetApi;

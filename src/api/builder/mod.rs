@@ -125,14 +125,3 @@ impl<T: Builder> EndpointBuilder<Domain, T> {
 pub trait Builder {
     fn build(self) -> Str;
 }
-
-pub mod api_fields {
-    #[derive(Debug, Default)]
-    pub struct UnsetProject;
-
-    #[derive(Debug, Default)]
-    pub struct UnsetVersion;
-
-    #[derive(Debug, Default)]
-    pub struct UnsetBuild;
-}

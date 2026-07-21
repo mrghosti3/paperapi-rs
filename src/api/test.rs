@@ -76,6 +76,7 @@ use super::ids::{BuildId, Project};
 #[test]
 fn test_project_versions_url() {
     let url = ProjectVersions::new()
+        .v3()
         .set_project(Project::Paper)
         .build();
 
@@ -86,6 +87,7 @@ fn test_project_versions_url() {
 fn test_project_version_url() {
     let version: VersionId = "1.20.1".try_into().unwrap();
     let url = ProjectVersion::new()
+        .v3()
         .set_project(Project::Paper)
         .set_version(version)
         .build();
@@ -97,6 +99,7 @@ fn test_project_version_url() {
 fn test_project_builds_url() {
     let version: VersionId = "1.20.1".try_into().unwrap();
     let url = ProjectBuilds::new()
+        .v3()
         .set_project(Project::Paper)
         .set_version(version)
         .build();
@@ -108,6 +111,7 @@ fn test_project_builds_url() {
 fn test_project_build_url_with_version() {
     let version: VersionId = "1.20.1".try_into().unwrap();
     let url = ProjectBuild::new()
+        .v3()
         .set_project(Project::Paper)
         .set_version(version)
         .set_build(BuildId::Latest)
@@ -120,6 +124,7 @@ fn test_project_build_url_with_version() {
 fn test_project_build_url_with_build_number() {
     let version: VersionId = "1.20.1".try_into().unwrap();
     let url = ProjectBuild::new()
+        .v3()
         .set_project(Project::Paper)
         .set_version(version)
         .set_build(BuildId::Version(123))
