@@ -29,6 +29,51 @@ impl Display for Domain {
     }
 }
 
+/// Main builder for constructing PaperMC API endpoints.
+///
+/// This builder uses a two-phase approach:
+/// 1. Set the domain (default or custom)
+/// 2. Set the specific endpoint builder
+///
+/// # Type Parameters
+/// - `D`: Domain state (UnsetDomain or Domain)
+/// - `A`: Endpoint state (UnsetApi or specific endpoint builder)
+///
+/// # Example - Using Default Domain
+///
+/// ```rust
+/// use paper_api::api::Endpoint;
+/// use paper_api::api::builder::endpoints::ProjectVersions;
+/// use paper_api::api::ids::Project;
+/// use paper_api::api::builder::Domain;
+///
+/// let endpoint = Endpoint::builder()
+///     .set_domain(Domain::Default)
+///     .set_endpoint(
+///         ProjectVersions::new()
+///             .v3()
+///             .set_project(Project::Paper)
+///     )
+///     .build();
+/// ```
+///
+/// # Example - Using Custom Domain
+///
+/// ```rust
+/// use paper_api::api::builder::Domain;
+/// use paper_api::api::Endpoint;
+/// use paper_api::api::builder::endpoints::ProjectVersions;
+/// use paper_api::api::ids::Project;
+///
+/// let endpoint = Endpoint::builder()
+///     .set_domain(Domain::Custom("https://custom.papermc.io".into()))
+///     .set_endpoint(
+///         ProjectVersions::new()
+///             .v3()
+///             .set_project(Project::Paper)
+///     )
+///     .build();
+/// ```
 #[derive(Debug)]
 pub struct EndpointBuilder<D, A> {
     domain: D,
@@ -45,6 +90,13 @@ impl EndpointBuilder<UnsetDomain, UnsetApi> {
 }
 
 impl<A> EndpointBuilder<UnsetDomain, A> {
+    /// Sets the domain for the endpoint builder.
+    ///
+    /// This must be called first to transition from UnsetDomain to Domain state.
+    ///
+    /// # Arguments
+    ///
+    /// * `domain` - The domain to use (Domain::Default or Domain::Custom)
     pub fn set_domain(self, domain: Domain) -> EndpointBuilder<Domain, A> {
         EndpointBuilder {
             domain,
