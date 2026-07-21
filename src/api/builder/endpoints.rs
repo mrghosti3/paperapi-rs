@@ -111,7 +111,7 @@ impl Builder for ProjectVersions<V3, Project> {
 /// ```rust
 /// use paper_api::api::builder::{endpoints::ProjectVersion, Builder};
 /// use paper_api::api::ids::{Project, VersionId};
-/// 
+///
 /// let version: VersionId = "1.20.1".try_into().unwrap();
 /// let url = ProjectVersion::new()
 ///     .v3()                    // Must set API version first
@@ -137,6 +137,9 @@ impl ProjectVersion<UnsetV, UnsetProject, UnsetVersion> {
         }
     }
 
+    /// Sets the API version to v3.
+    ///
+    /// This must be called first before setting the project.
     pub fn v3(self) -> ProjectVersion<V3, UnsetProject, UnsetVersion> {
         ProjectVersion {
             version: V3,
@@ -147,6 +150,10 @@ impl ProjectVersion<UnsetV, UnsetProject, UnsetVersion> {
 }
 
 impl ProjectVersion<V3, UnsetProject, UnsetVersion> {
+    /// Sets the project for this endpoint.
+    ///
+    /// # Arguments
+    /// * `project` - The PaperMC project (e.g., Project::Paper)
     pub fn set_project(self, project: Project) -> ProjectVersion<V3, Project, UnsetVersion> {
         ProjectVersion {
             version: self.version,
@@ -157,6 +164,10 @@ impl ProjectVersion<V3, UnsetProject, UnsetVersion> {
 }
 
 impl<V, P> ProjectVersion<V, P, UnsetVersion> {
+    /// Sets the version for this endpoint.
+    ///
+    /// # Arguments
+    /// * `version` - Minecraft version
     pub fn set_version(self, version: VersionId) -> ProjectVersion<V, P, VersionId> {
         ProjectVersion {
             version: self.version,
@@ -220,6 +231,9 @@ impl ProjectBuilds<UnsetV, UnsetProject, UnsetVersion> {
         }
     }
 
+    /// Sets the API version to v3.
+    ///
+    /// This must be called first before setting the project.
     pub fn v3(self) -> ProjectBuilds<V3, UnsetProject, UnsetVersion> {
         ProjectBuilds {
             version: V3,
@@ -230,6 +244,10 @@ impl ProjectBuilds<UnsetV, UnsetProject, UnsetVersion> {
 }
 
 impl ProjectBuilds<V3, UnsetProject, UnsetVersion> {
+    /// Sets the project for this endpoint.
+    ///
+    /// # Arguments
+    /// * `project` - The PaperMC project (e.g., Project::Paper)
     pub fn set_project(self, project: Project) -> ProjectBuilds<V3, Project, UnsetVersion> {
         ProjectBuilds {
             version: self.version,
@@ -240,6 +258,10 @@ impl ProjectBuilds<V3, UnsetProject, UnsetVersion> {
 }
 
 impl<V, P> ProjectBuilds<V, P, UnsetVersion> {
+    /// Sets the version for this endpoint.
+    ///
+    /// # Arguments
+    /// * `version` - Minecraft version
     pub fn set_version(self, version: VersionId) -> ProjectBuilds<V, P, VersionId> {
         ProjectBuilds {
             version: self.version,
@@ -279,7 +301,7 @@ impl Builder for ProjectBuilds<V3, Project, VersionId> {
 /// use paper_api::api::builder::{endpoints::ProjectBuild, Builder};
 /// use paper_api::api::ids::{Project, VersionId, BuildId};
 /// use std::convert::TryInto;
-/// 
+///
 /// let version: VersionId = "1.20.1".try_into().unwrap();
 /// let url = ProjectBuild::new()
 ///     .v3()                    // Must set API version first
@@ -326,6 +348,9 @@ impl ProjectBuild<UnsetV, UnsetProject, UnsetVersion, UnsetBuild> {
         }
     }
 
+    /// Sets the API version to v3.
+    ///
+    /// This must be called first before setting the project.
     pub fn v3(self) -> ProjectBuild<V3, UnsetProject, UnsetVersion, UnsetBuild> {
         ProjectBuild {
             version: V3,
@@ -337,6 +362,10 @@ impl ProjectBuild<UnsetV, UnsetProject, UnsetVersion, UnsetBuild> {
 }
 
 impl ProjectBuild<V3, UnsetProject, UnsetVersion, UnsetBuild> {
+    /// Sets the project for this endpoint.
+    ///
+    /// # Arguments
+    /// * `project` - The PaperMC project (e.g., Project::Paper)
     pub fn set_project(
         self,
         project: Project,
@@ -351,6 +380,10 @@ impl ProjectBuild<V3, UnsetProject, UnsetVersion, UnsetBuild> {
 }
 
 impl<V, P, B> ProjectBuild<V, P, UnsetVersion, B> {
+    /// Sets the version for this endpoint.
+    ///
+    /// # Arguments
+    /// * `version` - Minecraft version
     pub fn set_version(self, version: VersionId) -> ProjectBuild<V, P, VersionId, B> {
         ProjectBuild {
             version: self.version,
@@ -362,6 +395,10 @@ impl<V, P, B> ProjectBuild<V, P, UnsetVersion, B> {
 }
 
 impl<V, P, V2> ProjectBuild<V, P, V2, UnsetBuild> {
+    /// Sets build_id for this endpoint.
+    ///
+    /// # Arguments
+    /// * `build` - Minecraft Paper build id (e.g., BuildId::Latest)
     pub fn set_build(self, build: BuildId) -> ProjectBuild<V, P, V2, BuildId> {
         ProjectBuild {
             version: self.version,
