@@ -1,5 +1,3 @@
-use crate::api::Endpoint;
-
 use super::ids::VersionId;
 
 #[test]
@@ -81,7 +79,7 @@ fn test_project_versions_url() {
         .set_project(Project::Paper)
         .build();
 
-    assert_eq!(url, "https://fill.papermc.io/v3/projects/paper/versions".parse());
+    assert_eq!(url, "v3/projects/paper/versions".into());
 }
 
 #[test]
@@ -92,7 +90,7 @@ fn test_project_version_url() {
         .set_version(version)
         .build();
 
-    assert_eq!(url, "https://fill.papermc.io/v3/projects/paper/versions/1.20.1".parse());
+    assert_eq!(url, "v3/projects/paper/versions/1.20.1".into());
 }
 
 #[test]
@@ -103,7 +101,7 @@ fn test_project_builds_url() {
         .set_version(version)
         .build();
 
-    assert_eq!(url, "https://fill.papermc.io/v3/projects/paper/versions/1.20.1/builds".parse());
+    assert_eq!(url, "v3/projects/paper/versions/1.20.1/builds".into());
 }
 
 #[test]
@@ -115,7 +113,7 @@ fn test_project_build_url_with_version() {
         .set_build(BuildId::Latest)
         .build();
 
-    assert_eq!(url, "https://fill.papermc.io/v3/projects/paper/versions/1.20.1/builds/latest".parse());
+    assert_eq!(url, "v3/projects/paper/versions/1.20.1/builds/latest".into());
 }
 
 #[test]
@@ -127,5 +125,5 @@ fn test_project_build_url_with_build_number() {
         .set_build(BuildId::Version(123))
         .build();
 
-    assert_eq!(url, "https://fill.papermc.io/v3/projects/paper/versions/1.20.1/builds/123".parse());
+    assert_eq!(url, "v3/projects/paper/versions/1.20.1/builds/123".into());
 }

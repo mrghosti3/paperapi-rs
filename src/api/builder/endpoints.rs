@@ -1,5 +1,6 @@
 use url::Url;
 
+use crate::Str;
 use crate::api::ids::{BuildId, Project, VersionId};
 
 use super::Builder;
@@ -16,7 +17,7 @@ pub struct ProjectVersions<P> {
 impl ProjectVersions<UnsetProject> {
     pub fn new() -> Self {
         Self {
-            project: Default::default(),
+            project: UnsetProject,
         }
     }
 
@@ -26,10 +27,8 @@ impl ProjectVersions<UnsetProject> {
 }
 
 impl Builder for ProjectVersions<Project> {
-    fn build(self) -> Result<Url, url::ParseError> {
-        let url = format!("{}/v3/projects/{}/versions", crate::DOMAIN, self.project);
-
-        Url::parse(&url)
+    fn build(self) -> Str {
+        format!("v3/projects/{}/versions", self.project).into()
     }
 }
 
@@ -67,15 +66,8 @@ impl<P> ProjectVersion<P, UnsetVersion> {
 }
 
 impl Builder for ProjectVersion<Project, VersionId> {
-    fn build(self) -> Result<Url, url::ParseError> {
-        let url = format!(
-            "{}/v3/projects/{}/versions/{}",
-            crate::DOMAIN,
-            self.project,
-            self.version
-        );
-
-        Url::parse(&url)
+    fn build(self) -> Str {
+        format!("v3/projects/{}/versions/{}", self.project, self.version).into()
     }
 }
 
@@ -113,15 +105,8 @@ impl<P> ProjectBuilds<P, UnsetVersion> {
 }
 
 impl Builder for ProjectBuilds<Project, VersionId> {
-    fn build(self) -> Result<Url, url::ParseError> {
-        let url = format!(
-            "{}/v3/projects/{}/versions/{}/builds",
-            crate::DOMAIN,
-            self.project,
-            self.version
-        );
-
-        Url::parse(&url)
+    fn build(self) -> Str {
+        format!("v3/projects/{}/versions/{}/builds", self.project, self.version).into()
     }
 }
 
@@ -173,15 +158,7 @@ impl<P, V> ProjectBuild<P, V, UnsetBuild> {
 }
 
 impl Builder for ProjectBuild<Project, VersionId, BuildId> {
-    fn build(self) -> Result<Url, url::ParseError> {
-        let url = format!(
-            "{}/v3/projects/{}/versions/{}/builds/{}",
-            crate::DOMAIN,
-            self.project,
-            self.version,
-            self.build
-        );
-
-        Url::parse(&url)
+    fn build(self) -> Str {
+        format!("v3/projects/{}/versions/{}/builds/{}", self.project, self.version, self.build).into()
     }
 }

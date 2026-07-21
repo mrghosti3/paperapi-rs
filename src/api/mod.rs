@@ -1,4 +1,4 @@
-use self::builder::endpoints::UnsetApi;
+use self::builder::{endpoints::UnsetApi, UnsetDomain};
 
 pub mod ids;
 pub mod builder;
@@ -10,7 +10,7 @@ mod test;
 pub struct Endpoint(url::Url);
 
 impl Endpoint {
-    pub fn builder() -> builder::EndpointBuilder<UnsetApi> {
+    pub fn builder() -> builder::EndpointBuilder<UnsetDomain, UnsetApi> {
         builder::EndpointBuilder::new()
     }
 }
