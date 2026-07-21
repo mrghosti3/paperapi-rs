@@ -132,8 +132,8 @@ impl ProjectVersion<UnsetV, UnsetProject, UnsetVersion> {
     pub fn new() -> Self {
         Self {
             version: UnsetV,
-            project: Default::default(),
-            mc_version: Default::default(),
+            project: UnsetProject,
+            mc_version: UnsetVersion,
         }
     }
 
@@ -143,22 +143,22 @@ impl ProjectVersion<UnsetV, UnsetProject, UnsetVersion> {
     pub fn v3(self) -> ProjectVersion<V3, UnsetProject, UnsetVersion> {
         ProjectVersion {
             version: V3,
-            project: Default::default(),
-            mc_version: Default::default(),
+            project: UnsetProject,
+            mc_version: UnsetVersion,
         }
     }
 }
 
-impl ProjectVersion<V3, UnsetProject, UnsetVersion> {
+impl<MC> ProjectVersion<V3, UnsetProject, MC> {
     /// Sets the project for this endpoint.
     ///
     /// # Arguments
     /// * `project` - The PaperMC project (e.g., Project::Paper)
-    pub fn set_project(self, project: Project) -> ProjectVersion<V3, Project, UnsetVersion> {
+    pub fn set_project(self, project: Project) -> ProjectVersion<V3, Project, MC> {
         ProjectVersion {
             version: self.version,
             project,
-            mc_version: Default::default(),
+            mc_version: self.mc_version,
         }
     }
 }
@@ -226,8 +226,8 @@ impl ProjectBuilds<UnsetV, UnsetProject, UnsetVersion> {
     pub fn new() -> Self {
         Self {
             version: UnsetV,
-            project: Default::default(),
-            mc_version: Default::default(),
+            project: UnsetProject,
+            mc_version: UnsetVersion,
         }
     }
 
@@ -237,22 +237,22 @@ impl ProjectBuilds<UnsetV, UnsetProject, UnsetVersion> {
     pub fn v3(self) -> ProjectBuilds<V3, UnsetProject, UnsetVersion> {
         ProjectBuilds {
             version: V3,
-            project: Default::default(),
-            mc_version: Default::default(),
+            project: self.project,
+            mc_version: self.mc_version,
         }
     }
 }
 
-impl ProjectBuilds<V3, UnsetProject, UnsetVersion> {
+impl<MC> ProjectBuilds<V3, UnsetProject, MC> {
     /// Sets the project for this endpoint.
     ///
     /// # Arguments
     /// * `project` - The PaperMC project (e.g., Project::Paper)
-    pub fn set_project(self, project: Project) -> ProjectBuilds<V3, Project, UnsetVersion> {
+    pub fn set_project(self, project: Project) -> ProjectBuilds<V3, Project, MC> {
         ProjectBuilds {
             version: self.version,
             project,
-            mc_version: Default::default(),
+            mc_version: self.mc_version,
         }
     }
 }
@@ -342,9 +342,9 @@ impl ProjectBuild<UnsetV, UnsetProject, UnsetVersion, UnsetBuild> {
     pub fn new() -> Self {
         Self {
             version: UnsetV,
-            project: Default::default(),
-            mc_version: Default::default(),
-            build: Default::default(),
+            project: UnsetProject,
+            mc_version: UnsetVersion,
+            build: UnsetBuild,
         }
     }
 
@@ -354,14 +354,14 @@ impl ProjectBuild<UnsetV, UnsetProject, UnsetVersion, UnsetBuild> {
     pub fn v3(self) -> ProjectBuild<V3, UnsetProject, UnsetVersion, UnsetBuild> {
         ProjectBuild {
             version: V3,
-            project: Default::default(),
-            mc_version: Default::default(),
-            build: Default::default(),
+            project: UnsetProject,
+            mc_version: UnsetVersion,
+            build: UnsetBuild,
         }
     }
 }
 
-impl ProjectBuild<V3, UnsetProject, UnsetVersion, UnsetBuild> {
+impl<MC, B> ProjectBuild<V3, UnsetProject, MC, B> {
     /// Sets the project for this endpoint.
     ///
     /// # Arguments
@@ -369,12 +369,12 @@ impl ProjectBuild<V3, UnsetProject, UnsetVersion, UnsetBuild> {
     pub fn set_project(
         self,
         project: Project,
-    ) -> ProjectBuild<V3, Project, UnsetVersion, UnsetBuild> {
+    ) -> ProjectBuild<V3, Project, MC, B> {
         ProjectBuild {
             version: self.version,
             project,
-            mc_version: Default::default(),
-            build: Default::default(),
+            mc_version: self.mc_version,
+            build: self.build,
         }
     }
 }
@@ -394,12 +394,12 @@ impl<V, P, B> ProjectBuild<V, P, UnsetVersion, B> {
     }
 }
 
-impl<V, P, V2> ProjectBuild<V, P, V2, UnsetBuild> {
+impl<V, P, MC> ProjectBuild<V, P, MC, UnsetBuild> {
     /// Sets build_id for this endpoint.
     ///
     /// # Arguments
     /// * `build` - Minecraft Paper build id (e.g., BuildId::Latest)
-    pub fn set_build(self, build: BuildId) -> ProjectBuild<V, P, V2, BuildId> {
+    pub fn set_build(self, build: BuildId) -> ProjectBuild<V, P, MC, BuildId> {
         ProjectBuild {
             version: self.version,
             project: self.project,
