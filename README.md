@@ -23,13 +23,13 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-paper-api = { git = "https://github.com/mrghosti3/paper-api.git" }
+paper-api = { git = "https://github.com/mrghosti3/paperapi-rs.git" }
 ```
 
 Or:
 
 ```shell
-cargo add --git "https://github.com/mrghosti3/paper-api.git"
+cargo add --git "https://github.com/mrghosti3/paperapi-rs.git"
 ```
 
 ## Usage
